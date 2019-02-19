@@ -452,6 +452,7 @@ void KVWorker<Val>::DefaultSlicer(
     }
     sliced->at(i).first = true;
     auto& kv = sliced->at(i).second;
+    // segment 零copy
     kv.keys = send.keys.segment(pos[i], pos[i+1]);
     if (send.lens.size()) {
       kv.lens = send.lens.segment(pos[i], pos[i+1]);
