@@ -20,6 +20,7 @@ include_directories(pslite ${ZMQ_INCLUDE_DIRS})
 list(APPEND pslite_LINKER_LIBS_L ${ZMQ_LIBRARIES})
 # ---[ Google-protobuf
 include(cmake/ProtoBuf.cmake)
+list(APPEND pslite_LINKER_LIBS_L ${PROTOBUF_LIBRARIES})
 
 # generate protobuf sources
 set(proto_gen_folder "${PROJECT_BINARY_DIR}/src")
@@ -52,7 +53,7 @@ endif()
 list(APPEND SOURCE ${proto_srcs}) 
 add_library(pslite ${SOURCE}) 
 
-target_link_libraries(pslite ${pslite_LINKER_LIBS})
+target_link_libraries(pslite ${pslite_LINKER_LIBS_L})
 
 # FindProtobuf behavior changed from cmake 3.6 onwards
 IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} GREATER 3.6)
@@ -73,3 +74,6 @@ set(pslite_LINKER_LIBS ${pslite_LINKER_LIBS_L} PARENT_SCOPE)
 set(pslite_LINKER_LIBS_RELEASE ${pslite_LINKER_LIBS_L_RELEASE} PARENT_SCOPE)
 set(pslite_LINKER_LIBS_DEBUG ${pslite_LINKER_LIBS_L_DEBUG} PARENT_SCOPE)
 set(pslite_INCLUDE_DIR ${pslite_INCLUDE_DIR_L} PARENT_SCOPE)
+
+
+MESSAGE("ps-lite  pslite_LINKER_LIBS : " ${pslite_LINKER_LIBS})
